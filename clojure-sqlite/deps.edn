@@ -1,0 +1,9 @@
+{:deps
+ {org.clojure/java.jdbc {:mvn/version "0.7.8"}
+  org.xerial/sqlite-jdbc {:mvn/version "3.23.1"}
+  sample {:local/root "."}}
+
+ :aliases
+	{:abc {:extra-paths ["/root/host"]}}
+ }
+
