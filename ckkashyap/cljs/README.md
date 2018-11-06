@@ -17,7 +17,7 @@ To test the code you would need to extract the html and the generated javascript
 ```bash
     docker run --rm -it -v /tmp:/tmp <image name:tag> 
 ```
-This will drop you into a bash shell at ~/project1 . You can copy index.html and out/ to /tmp
+This will drop you into a bash shell at /tmp/project1 . You can copy index.html and out/ to /tmp
 ```bash
     cp -Rf index.html out /tmp
 ```

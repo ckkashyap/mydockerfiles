@@ -1,6 +1,6 @@
 FROM clojure:tools-deps-alpine
 RUN apk add git
-WORKDIR /root/project1
+WORKDIR /tmp/project1
 RUN mkdir src
 COPY deps.edn .
 COPY watch.clj build.clj index.html ./
