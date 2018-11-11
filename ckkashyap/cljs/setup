@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ ! -e "/root/.setupdone" ]
+then
+    echo "First time setup - copying over maven repo"
+    cp -Rvf /_root/.m2 /root
+    touch /root/.setupdone
+fi
+
+x="$1"
+if [ "$x" == "" ]; then x="template"; fi
+
+if [ -e "$x" ]
+then
+	echo "$x already exists"
+else
+	cp -Rv /_root/setup "$x"
+fi
