@@ -9,7 +9,12 @@
         prone                     {:mvn/version "1.6.1"}
         compojure                 {:mvn/version "1.6.1"}
         hiccup                    {:mvn/version "1.0.5"}
-        reagent                   {:mvn/version "0.8.1"}}
+        reagent                   {:mvn/version "0.8.1"}
+
+        org.clojure/tools.nrepl {:mvn/version "0.2.13"}
+        cider/cider-nrepl       {:mvn/version "0.17.0"}
+        com.cemerick/piggieback {:mvn/version "0.2.2"}
+        figwheel-sidecar        {:mvn/version "0.5.14"}}
 
  :aliases {:run        {:main-opts ["-m" "my-project.server"]}
            :cljsbuild  {:main-opts ["-m" "cljs.main" "-co" "cljsbuild.edn" "-c"]}
