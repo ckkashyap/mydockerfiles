@@ -1,0 +1,1 @@
+dbapp 8080 user /home/user log /usr/bin/pil dbapp.l -main -go -wait
