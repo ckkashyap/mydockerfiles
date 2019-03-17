@@ -1,11 +1,10 @@
-FROM ubuntu:18.04 as build
+FROM ubuntu:18.04
 WORKDIR /root
 RUN apt-get update && apt-get install -y picolisp && apt-get install -y vim gcc gcc-multilib gdb nasm git cscope make curl telnet mercurial build-essential libssl-dev strace w3m libsdl2-dev libsdl2-image-dev && git clone -b contrib https://github.com/ckkashyap/picoLisp.git picoLispFordocker && cd picoLispFordocker/src && USE_IPV4=-DUSE_IPV4 make gate && cp ../bin/* /bin/ && rm -rf /root/picoLispFordocker && useradd user && mkdir /home/user
 COPY dbapp.l /home/user
 COPY names /root
+COPY run-alfonso-sdl.sh /root
 
-FROM ubuntu:18.04
-COPY --from=build / /
 EXPOSE 3000
 WORKDIR /root
 ENV LANG=en-US
