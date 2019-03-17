@@ -9,5 +9,6 @@ COPY --from=build / /
 EXPOSE 3000
 WORKDIR /root
 ENV LANG=en-US
+ENV DISPLAY=host.docker.internal:0
 RUN chown -R user:user /home/user
 CMD /bin/httpGate 3000 names && /bin/bash
