@@ -1,0 +1,2 @@
+docker build -t ckkashyap/tools:AzurePicoLisp -f AzurePicoLisp  .
+docker push ckkashyap/tools:AzurePicoLisp

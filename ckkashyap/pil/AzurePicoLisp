@@ -1,0 +1,7 @@
+FROM ubuntu:18.04
+RUN apt-get update && apt-get install -y --no-install-recommends picolisp wget openssh-server && echo "root:Docker!" | chpasswd
+WORKDIR /root
+EXPOSE 22
+EXPOSE 80
+COPY start.sh /root
+COPY sshd_config /etc/ssh/
