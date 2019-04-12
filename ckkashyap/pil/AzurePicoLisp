@@ -3,5 +3,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends picolisp wget o
 WORKDIR /root
 EXPOSE 22
 EXPOSE 80
-COPY start.sh /root
+COPY start.l /root
+COPY script.l /root
+COPY web.l /root
+RUN chmod +x /root/start.l /root/script.l
 COPY sshd_config /etc/ssh/
