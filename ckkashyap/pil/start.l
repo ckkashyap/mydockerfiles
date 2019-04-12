@@ -6,7 +6,7 @@
         (call "chmod" "+x" "script.l"))
 
 
-(if (= "YES" (uppc (sys "RELOAD_SCRIPT"))) (reload_script))
+(if (= "YES" (uppc (sys "RELOAD_SCRIPT"))) (reload-script))
 
 (call "./script.l")
 (bye)
