@@ -1,0 +1,10 @@
+FROM ubuntu:18.04 as build
+WORKDIR /root
+RUN apt-get update && apt-get install -y picolisp && apt-get install -y vim gcc gcc-multilib gdb nasm git cscope make curl telnet mercurial build-essential libssl-dev strace screen
+COPY screenrc /root/.screenrc
+
+FROM ubuntu:18.04
+COPY --from=build / /
+WORKDIR /root
+ENV LANG=en-US
+ENV DISPLAY=host.docker.internal:0
