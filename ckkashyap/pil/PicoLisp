@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
+FROM ubuntu:19.04
 WORKDIR /root
-RUN apt-get update && apt-get install -y picolisp && apt-get install -y vim gcc gcc-multilib gdb nasm git cscope make curl telnet mercurial build-essential libssl-dev strace w3m libsdl2-dev libsdl2-image-dev && git clone -b contrib https://github.com/ckkashyap/picoLisp.git picoLispFordocker && cd picoLispFordocker/src && USE_IPV4=-DUSE_IPV4 make gate && cp ../bin/* /bin/ && rm -rf /root/picoLispFordocker && useradd user && mkdir /home/user
+RUN apt-get update && apt-get install -y picolisp && apt-get install -y vim gcc gcc-multilib gdb nasm git cscope make curl telnet mercurial build-essential libssl-dev strace w3m libsdl2-dev libsdl2-image-dev && git clone -b contrib https://github.com/ckkashyap/picoLisp.git plfd && cd plfd/src && USE_IPV4=-DUSE_IPV4 make gate && cp ../bin/* /bin/ && cd /root  && rm -rf /root/plfd && git clone https://github.com/ckkashyap/picoLisp.git plfd && cd plfd/src64 && make && rm -rf /usr/lib/picolisp && ln -s /root/plfd /usr/lib/picolisp && rm -f /usr/bin/pil /usr/bin/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp && useradd user && mkdir /home/user
 COPY dbapp.l /home/user
 COPY names /root
 COPY run-alfonso-sdl.sh /root
