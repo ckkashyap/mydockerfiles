@@ -1,0 +1,5 @@
+FROM alpine:latest
+WORKDIR /root
+RUN apk add git gcc musl-dev make openssl-dev && git clone https://github.com/ckkashyap/picoLisp.git && cd picoLisp/src64 && make && cd ../src && make gate && ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp
+ENV LANG=en-US
+ENV DISPLAY=host.docker.internal:0
