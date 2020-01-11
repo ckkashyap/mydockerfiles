@@ -1,10 +1,11 @@
-# docker build -t ckkashyap/pil -f AlpinePil .
+# docker build -t ckkashyap/pil -f Pil .
 FROM alpine:latest as build
 WORKDIR /root
-RUN apk add git gcc musl-dev make openssl-dev && git clone https://github.com/ckkashyap/picoLisp.git && cd picoLisp/src64 && make && cd ../src && make gate && ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp
+RUN apk add git gcc musl-dev make openssl-dev && git clone https://github.com/ckkashyap/picoLisp.git && cd picoLisp/src64 && make && cd ../src && make gate && ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp && ln -s /usr/lib/picolisp/bin/httpGate /usr/bin/httpGate
 
 FROM alpine:latest
 COPY --from=build /root/picoLisp /usr/lib/picolisp
 RUN ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp
 ENV LANG=en-US
 ENV DISPLAY=host.docker.internal:0
+WORKDIR /root
