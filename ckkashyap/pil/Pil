@@ -1,9 +1,10 @@
-FROM ubuntu:19.10
+# docker build -t ckkashyap/pil -f AlpinePil .
+FROM alpine:latest as build
 WORKDIR /root
-RUN apt-get update && apt-get install -y picolisp && apt-get install -y vim gcc gcc-multilib gdb nasm git cscope make curl telnet mercurial build-essential libssl-dev strace w3m && git clone -b contrib https://github.com/ckkashyap/picoLisp.git plfd && cd plfd/src && USE_IPV4=-DUSE_IPV4 make gate && cp ../bin/* /bin/ && cd /root  && rm -rf /root/plfd && git clone https://github.com/ckkashyap/picoLisp.git plfd && cd plfd/src64 && make && rm -rf /usr/lib/picolisp && ln -s /root/plfd /usr/lib/picolisp && rm -f /usr/bin/pil /usr/bin/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp && useradd user && mkdir /home/user
+RUN apk add git gcc musl-dev make openssl-dev && git clone https://github.com/ckkashyap/picoLisp.git && cd picoLisp/src64 && make && cd ../src && make gate && ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp
 
-EXPOSE 3000
-WORKDIR /root
+FROM alpine:latest
+COPY --from=build /root/picoLisp /usr/lib/picolisp
+RUN ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp
 ENV LANG=en-US
 ENV DISPLAY=host.docker.internal:0
-CMD /bin/httpGate 3000 8080 && /bin/bash
