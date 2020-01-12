@@ -1,11 +1,12 @@
 # docker build -t ckkashyap/pil -f Pil .
 FROM alpine:latest as build
 WORKDIR /root
-RUN apk add git gcc musl-dev make openssl-dev && git clone https://github.com/ckkashyap/picoLisp.git && cd picoLisp/src64 && make && cd ../src && make gate && ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp && ln -s /usr/lib/picolisp/bin/httpGate /usr/bin/httpGate
+RUN apk add git gcc musl-dev make openssl-dev bash busybox-extras && git clone -b contrib https://github.com/ckkashyap/picoLisp.git contrib && git clone https://github.com/ckkashyap/picoLisp.git && rm -rf picoLisp/src && cp -Rf contrib/src picoLisp && cd picoLisp/src64 && make && cd ../src && USE_IPV4=-DUSE_IPV4 make gate
 
 FROM alpine:latest
 COPY --from=build /root/picoLisp /usr/lib/picolisp
-RUN ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp
+RUN ln -s /root/picoLisp /usr/lib/picolisp && ln -s /usr/lib/picolisp/bin/pil /usr/bin/pil && ln -s /usr/lib/picolisp/bin/picolisp /usr/bin/picolisp &&  ln -s /usr/lib/picolisp/bin/httpGate /usr/bin/httpGate
 ENV LANG=en-US
 ENV DISPLAY=host.docker.internal:0
 WORKDIR /root
+CMD httpGate $PICOPORT 8080 && sh
